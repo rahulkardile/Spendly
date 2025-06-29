@@ -14,10 +14,12 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.7",
-    "typescript": "^5.8.3",
-    "nodemon": "^3.0.0"
+    "nodemon": "^3.0.0",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "dotenv": "^17.0.0",
     "express": "^5.1.0"
   }
 }
