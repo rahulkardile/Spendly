@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-import { sql } from "./config/db.config.js";
-import authRoutes from "../src/routes/auth.routes.js";
+import { sql } from './config/db.config'
+import authRoutes from './routes/auth.routes';
 
 const app = express();
 dotenv.config();
