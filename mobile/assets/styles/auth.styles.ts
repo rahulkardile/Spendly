@@ -9,9 +9,11 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   illustration: {
-    width: "100%",
+    width: 300,
     height: 310,
     resizeMode: "contain",
+    alignSelf: "center",
+    marginBottom: 20,
   },
   title: {
     fontSize: 32,
@@ -44,13 +46,15 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: COLORS.white,
     fontSize: 18,
-    fontWeight: "600",
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontWeight: "800",
   },
   footerContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 8,
+    marginTop: 10,
   },
   footerText: {
     color: COLORS.text,
