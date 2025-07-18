@@ -1,14 +1,14 @@
 import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { useState } from 'react'
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
 
-  const [emailAddress, setEmailAddress] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
 
   const onSignInPress = async () => {
     if (!isLoaded) return
@@ -51,7 +51,7 @@ export default function Page() {
       <View style={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
         <Text>Don't have an account?</Text>
         <Link href="/sign-up">
-          <Text>Sign up</Text>
+          <Text>Sign up </Text>
         </Link>
       </View>
     </View>
