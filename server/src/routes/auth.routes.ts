@@ -2,7 +2,7 @@
 import { Router, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { sql } from "../config/db.config"; 
+import { sql } from "../config/db.config.js"; 
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
