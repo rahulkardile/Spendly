@@ -58,4 +58,12 @@ export const useTransactions = ( userId: string ) =>{
             Alert.alert("Error", error.message)
         }
     }
+
+    return { 
+        transactions,
+        summery,
+        isLoading,
+        loadData,
+        deleteTransaction
+    }
 }
