@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // middleware
-app.use(rateLimiter);
+// app.use(rateLimiter);
 app.use(express.json());
 
 const PORT = process.env.PORT || 5001;
@@ -26,7 +26,7 @@ app.get("/api/health", (req: Request, res: Response) => {
 app.use("/api/transactions", transactionsRoute);
 
 initDB().then(() => {
-  app.listen(Number(PORT), () => {
+  app.listen(Number(PORT), "0.0.0.0", () => {
     console.log("Server is up and running on PORT:", PORT);
   });
 });
