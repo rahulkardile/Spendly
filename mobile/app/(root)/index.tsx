@@ -4,6 +4,7 @@ import { Text, View } from 'react-native'
 import { SignOutButton } from '@/components/SignOutButton'
 import { useTransactions } from '@/hooks/useTransactions';
 import { useEffect } from 'react';
+import PageLoader from '@/components/PageLoader';
 
 export default function Page() {
   const { user } = useUser();
@@ -13,14 +14,15 @@ export default function Page() {
     loadData();
   },[loadData]);
 
-  console.log("user id : ", user?.id);
-  console.log("transaction: ", transactions);
-  console.log("summery: ", summary);
+  if(isLoading) return <PageLoader />
 
   return (
     <View>
       <SignedIn>
         <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+        <Text>Income : {JSON.stringify(transactions)}</Text>
+        <Text>Balance : {summary.balance}</Text>
+        <Text>Expenses : {summary.expenses}</Text>
         <SignOutButton />
       </SignedIn>
       <SignedOut>

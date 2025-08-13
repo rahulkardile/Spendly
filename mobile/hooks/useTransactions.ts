@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 // import { API_URL } from "../constants/api";
 
-const API_URL = "https://wallet-api-cxqp.onrender.com/api";
+const API_URL = "https://spendly-5o25.onrender.com/api";
 // const API_URL = "http://localhost:3300/api";
 
 export const useTransactions = (userId:string) => {
@@ -19,9 +19,8 @@ export const useTransactions = (userId:string) => {
   // useCallback is used for performance reasons, it will memoize the function
   const fetchTransactions = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:3300/api/transactions/user_301phEDHVNBqiYEnuVBHIBTyB7i");
+      const response = await fetch(`${API_URL}/transactions/${userId}`);
       const data = await response.json();
-      console.log("data " + `${API_URL}/transactions/${userId}`);
       setTransactions(data);
     } catch (error) {
       console.error("Error fetching transactions:", error);
@@ -30,9 +29,8 @@ export const useTransactions = (userId:string) => {
 
   const fetchSummary = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:3300/api/transactions/summary/user_301phEDHVNBqiYEnuVBHIBTyB7i`);
+      const response = await fetch(`${API_URL}/transactions/summary/${userId}`);
       const data = await response.json();
-      console.log("transactions - summary : ", await data);
       setSummary(data);
     } catch (error) {
       console.error("Error fetching summary:", error);
@@ -61,7 +59,7 @@ export const useTransactions = (userId:string) => {
       // Refresh data after deletion
       loadData();
       Alert.alert("Success", "Transaction deleted successfully");
-    } catch (error) {
+    } catch (error:any) {
       console.error("Error deleting transaction:", error);
       Alert.alert("Error", error.message);
     }
