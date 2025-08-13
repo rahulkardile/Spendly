@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 export default function Page() {
   const { user } = useUser();
-  const { transactions, summery, deleteTransaction, isLoading, loadData } = useTransactions(user!.id);
+  const { transactions, summary, deleteTransaction, isLoading, loadData } = useTransactions(user!.id);
   
   useEffect(()=>{
     loadData();
@@ -15,7 +15,7 @@ export default function Page() {
 
   console.log("user id : ", user?.id);
   console.log("transaction: ", transactions);
-  console.log("summery: ", summery);
+  console.log("summery: ", summary);
 
   return (
     <View>
