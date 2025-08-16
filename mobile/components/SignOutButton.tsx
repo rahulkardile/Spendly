@@ -3,19 +3,17 @@ import { COLORS } from '@/constant/colors'
 import { useClerk } from '@clerk/clerk-expo'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { Text, TouchableOpacity } from 'react-native'
+import { Alert, Text, TouchableOpacity } from 'react-native'
 
 export const SignOutButton = () => {
   const { signOut } = useClerk()
   const router = useRouter()
 
   const handleSignOut = async () => {
-    try {
-      await signOut()
-      router.replace('/')
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2))
-    }
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      { "text": "Cancel", style: "cancel" },
+      { text: "Logout", style: "destructive", onPress: () => signOut() }
+    ])
   }
 
   return (
