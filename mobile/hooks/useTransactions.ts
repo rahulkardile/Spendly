@@ -2,10 +2,8 @@
 
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
-// import { API_URL } from "../constants/api";
 
-const API_URL = "https://spendly-5o25.onrender.com/api";
-// const API_URL = "http://localhost:3300/api";
+export const API_URL = "https://spendly-5o25.onrender.com/api";
 
 export const useTransactions = (userId:string) => {
   const [transactions, setTransactions] = useState([]);
