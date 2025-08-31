@@ -14,7 +14,7 @@ import { RefreshControl } from 'react-native-gesture-handler';
 
 export default function Page() {
   const { user } = useUser();
-  const { transactions, deleteTransaction, isLoading, loadData } = useTransactions(user!.id);
+  const { transactions, summary, deleteTransaction, isLoading, loadData } = useTransactions(user!.id);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function Page() {
           {/* Left */}
           <View style={styles.headerLeft}>
             <Image
-              source={require("@/assets/images/logo.png")}
+              source={require("@/assets/images/logo2_no_bg.png")}
               style={styles.headerLogo}
               resizeMode='contain'
             />
@@ -66,7 +66,7 @@ export default function Page() {
           <SignOutButton />
         </View>
 
-        <BalanceCard summary={{ balance: 32987343, income: 7029, expenses: 8473 }} />
+        <BalanceCard summary={summary} />
 
         <View style={styles.transactionsHeaderContainer}>
           <Text style={styles.sectionTitle}>Recent Transactions</Text>

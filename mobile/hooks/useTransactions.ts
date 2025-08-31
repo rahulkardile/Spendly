@@ -1,5 +1,6 @@
 // react custom hook file
 
+import { router } from "expo-router";
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 
@@ -22,6 +23,7 @@ export const useTransactions = (userId:string) => {
       setTransactions(data);
     } catch (error) {
       console.error("Error fetching transactions:", error);
+    }finally{
     }
   }, [userId]);
 
@@ -32,6 +34,7 @@ export const useTransactions = (userId:string) => {
       setSummary(data);
     } catch (error) {
       console.error("Error fetching summary:", error);
+    }finally{
     }
   }, [userId]);
 
@@ -41,7 +44,10 @@ export const useTransactions = (userId:string) => {
     setIsLoading(true);
     try {
       // can be run in parallel
-      await Promise.all([fetchTransactions(), fetchSummary()]);
+      await Promise.all([fetchTransactions(), fetchSummary()]).then(()=>{
+      console.log(`\nSummery : ${JSON.stringify(summary)} `);
+      console.log(`User transaction Date - \nid : ${userId}, \ntransactions : ${JSON.stringify(transactions)} `);
+      });
     } catch (error) {
       console.error("Error loading data:", error);
     } finally {
@@ -62,6 +68,38 @@ export const useTransactions = (userId:string) => {
       Alert.alert("Error", error.message);
     }
   };
+  
+  const createTransaction = async (data:{id: string, title: string, amount: number, category: string}) => {
+    try {
+      const response = await fetch(`${API_URL}/transactions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: data!.id,
+          title: data.title,
+          amount: data.amount,
+          category: data.category,
+        }),
+      });
 
-  return { transactions, summary, isLoading, loadData, deleteTransaction };
+      if (!response.ok){
+        const errorData = await response.json();
+        console.log(errorData);
+        throw new Error("Failed to delete transaction")
+      };
+
+      // Refresh data after create
+      loadData();
+      Alert.alert("Success", "Transaction created successfully");
+      loadData();
+      router.push("/");
+    } catch (error:any) {
+      Alert.alert("Error", error.message || "Failed to create transaction");
+      console.error("Error creating transaction:", error);
+    }
+  };
+
+  return { transactions, summary, isLoading, loadData, deleteTransaction, createTransaction };
 };

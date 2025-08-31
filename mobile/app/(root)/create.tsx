@@ -9,7 +9,7 @@ import {
 import { useRouter } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
 import { useState } from "react";
-import { API_URL } from "@/hooks/useTransactions";
+import { useTransactions } from "@/hooks/useTransactions";
 import { styles } from "../../assets/styles/create.styles";
 import { COLORS } from "@/constant/colors";
 import { Ionicons } from "@expo/vector-icons";
@@ -27,6 +27,7 @@ const CATEGORIES = [
 const CreateScreen = () => {
   const router = useRouter();
   const { user } = useUser();
+  const { createTransaction } = useTransactions(user!.id);
 
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
@@ -51,27 +52,13 @@ const CreateScreen = () => {
         ? -Math.abs(parseFloat(amount))
         : Math.abs(parseFloat(amount));
 
-      const response = await fetch(`${API_URL}/transactions`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: user?.id,
+      createTransaction({
+          id: user!.id,
           title,
           amount: formattedAmount,
           category: selectedCategory,
-        }),
-      });
+      })
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
-        throw new Error(errorData.error || "Failed to create transaction");
-      }
-
-      Alert.alert("Success", "Transaction created successfully");
-      router.back();
     } catch (error: any) {
       Alert.alert("Error", error.message || "Failed to create transaction");
       console.error("Error creating transaction:", error);
